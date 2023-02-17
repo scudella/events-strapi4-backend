@@ -19,4 +19,15 @@ module.exports = ({ env }) => ({
       },
     },
   },
+  slugify: {
+    enabled: true,
+    config: {
+      contentTypes: {
+        event: {
+          field: "slug",
+          references: "name",
+        },
+      },
+    },
+  },
 });
