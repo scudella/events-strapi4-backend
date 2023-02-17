@@ -1,9 +1,26 @@
-'use strict';
+const { createCoreController } = require("@strapi/strapi").factories;
 
-/**
- * event controller
- */
+module.exports = createCoreController("api::event.event", ({ strapi }) => ({
+  async me(ctx) {
+    const user = ctx.state.user;
 
-const { createCoreController } = require('@strapi/strapi').factories;
+    if (!user) {
+      return ctx.badRequest(null, [
+        { messages: [{ id: "No authorization header was found" }] },
+      ]);
+    }
 
-module.exports = createCoreController('api::event.event');
+    const data = await strapi.entityService.findMany("api::event.event", {
+      fields: "*",
+      filters: { user: user.id },
+      populate: "*",
+    });
+
+    if (!data) {
+      return ctx.notFound();
+    }
+
+    const sanitizedEntity = await this.sanitizeOutput(data, ctx);
+    return sanitizedEntity;
+  },
+}));
