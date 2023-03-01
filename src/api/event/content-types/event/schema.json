@@ -41,12 +41,7 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      "allowedTypes": ["images", "files", "videos", "audios"]
     },
     "user": {
       "type": "relation",
@@ -55,10 +50,20 @@
       "inversedBy": "events"
     },
     "latitude": {
-      "type": "decimal"
+      "type": "decimal",
+      "column": {
+        "defaultTo": -22.80773976,
+        "type": "decimal",
+        "args": [12, 8]
+      }
     },
     "longitude": {
-      "type": "decimal"
+      "type": "decimal",
+      "column": {
+        "defaultTo": -47.06416881,
+        "type": "decimal",
+        "args": [12, 8]
+      }
     }
   }
 }
